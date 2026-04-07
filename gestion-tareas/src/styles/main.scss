@@ -1,0 +1,11 @@
+$primary-blue: #2563eb;
+$dark-bg: #121826;
+$text-color: #ffffff;
+
+@import "bootstrap/scss/bootstrap";
+
+body {
+  background-color: $dark-bg;
+  color: $text-color;
+  font-family: 'Inter', sans-serif;
+}

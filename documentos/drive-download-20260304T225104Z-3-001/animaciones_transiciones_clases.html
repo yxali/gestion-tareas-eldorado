@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practica</title>
+<style>
+    
+    html,body{
+        padding: 0%;
+        margin: 0%;
+        background-color: white;
+    }
+
+    #primer_bloque{
+        text-align: center;
+        padding: 2%;
+    }
+
+
+
+    button{
+    margin: 2% auto;
+    display: block;
+    background-color:  rgb(22, 25, 216);
+    color: #ffc000;
+    border: none;
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    width: 200px;
+    height: 30px;
+    transition-property: background-color, color, font-size, width;
+    transition-duration: 1s;
+}
+
+button:hover{
+    background-color: black;
+    color: #ffc000;
+    font-size: 20px;
+    height: 32px;
+    width: 230px;
+}
+
+
+    p{
+        font-size: 20px;
+    }
+
+
+    #segundo_bloque,#tercer_bloque,#cuarto_bloque{
+        display: flex;
+        align-items: center;
+        margin: 2% auto;
+        text-align: center;
+    }
+
+    .rectangulo{
+        background-color: red;
+        width: 100px;
+        height: 150px;
+        margin: 2% auto;
+        
+    }
+
+    .cuadrado{
+        background-color: blue;
+        width: 150px;
+        height: 150px;
+        margin: 2% auto;
+    }
+
+    #figura2{
+        /*transform: rotate(0deg);*/
+        transition-property: width, background-color, transform;
+        transition-duration: 2s;
+    }
+
+    .circulo{
+        background-color: green;
+        width: 150px;
+        height: 150px;
+        border-radius: 100%;
+        margin: 2% auto;
+    }
+
+    #objeto_capaz_de_moverse{
+        position: relative;
+        width: 80px;
+        height: 80px;
+        background-color: red;
+        /* existe una propiedad llamada animation-name (asi es en css) pero en este caso no nos
+        interesa colocarla aqui, sino en javascript luego de presionar cierto boton, en javascript
+        podemos setearla de la sigueinte manera:  <ref del elemento> .style.animationName = "nombre de la animacion que queremos poner"*/
+        /*desde la linea 194 podemos apreciar lo anterior dicho*/
+
+        animation-duration: 5s; /* duracion de la animacion*/
+        animation-iteration-count: infinite; /* cantidad de iteraciones, podemos poner un numero entero o infinite para infinitas veces*/
+        animation-timing-function: linear; /* manera en que transcurrira la animacion*/
+        }
+
+
+/* las animaciones pueden constar de tantas partes (en porcentajes) que queramos, en este caso las animaciones
+constan de 4 partes y en cada una se editan propiedades del elemento css que obtendra tal animacion*/
+    @keyframes animacion1 {
+        0% {background-color: red; left: 0px; top: 0px; }  
+        25% {background-color: gold; left: 590px; top: 0px; }
+        50% {background-color: green; left: 590px; top: 420px;}
+        75% {background-color: blue; left: 0px; top: 420px;}
+        100% {background-color: red; left: 0px; top: 0px;}
+    }
+
+    @keyframes animacion2 {
+        0% {background-color: red; left: 0px; top: 0px;}
+        25% {background-color: gold; left: 310px; top: 200px;}
+        50% {background-color: green; left: 600px; top: 420px;}
+        75% {background-color: blue; left: 310px; top: 200px;}
+        100% {background-color: red; left: 0px; top: 0px;}
+    }
+
+    @keyframes animacion3 {
+        0% {background-color: red; left: 580px; top: 410px; transform: rotate(0deg);}
+        20% {background-color: gold; left: 580px; top: 0px; transform: rotate(45deg);}
+        35% {background-color: rgb(0, 255, 13); left: 290px; top: 200px; transform: rotate(90deg);} 
+        50% {background-color: rgb(0, 247, 255); left: 0px; top: 0px; transform: rotate(180deg);}
+        75% {background-color: rgb(0, 68, 255); left: 0px; top: 410px; transform: rotate(270deg);}
+        100% {background-color: rgb(174, 0, 255); left: 500px; top: 410px; transform: rotate(360deg);}
+    }
+
+
+    #quinto_bloque{
+        display: flex;
+    }
+
+    #figura3,#figura4,#figura5{
+        position: relative;
+        background-color: red;
+        width: 70px;
+        height: 70px;
+        margin: 2%;
+        animation-duration: 5s;
+    }
+
+    #figura3{
+        animation-timing-function: ease;
+    }
+
+    #figura4{
+        animation-timing-function: ease-out;
+    }
+    #figura5{
+        animation-timing-function: ease-in-out;
+    }
+
+    @keyframes animacion4 {
+        0% {background-color: red; left: 0px; top: 0px; transform: rotate(360deg);}
+        20% {background-color: gold; left: 200px; top: 0px; transform: rotate(0);}
+        40% {background-color: green; left: 500px; top: 0px; transform: rotate(360deg);}
+        60% {background-color: blue; left: 700px; top: 0px;transform: rotate(0deg);}
+        80% {background-color: rgb(174, 0, 255); left: 900px; top: 0px; transform: rotate(360deg);}
+        100% { left: 0; top: 0;}
+    }
+
+</style>
+</head>
+<body>
+    
+        <div id="primer_bloque">
+        
+        <center>
+            <h1>Agregar y cambiar clases a elementos</h1>
+            <p>Tenemos en css, 3 clases: circulo, cuadrado y rectangulo. Aprenderemos como agregar y quitar clases en javascript puro.</p>
+        </center>
+
+
+        </div>
+    
+    
+    
+    <div id="segundo_bloque" style="background-color: gold;">
+        <div style="width: 50%;">
+            <button id="cuadrado_boton" type="button">Convertir en cuadrado</button>
+            <button id="circulo_boton" type="button">Convertir en circulo</button>
+            <button id="rectangulo_boton" type="button">Convertir en rectangulo</button>
+        </div>
+        <div style="width: 50%;">
+            <div id="figura" class="rectangulo"></div>
+        </div>
+    </div>
+
+    <center>
+        <h1>Animaciones</h1>
+    </center>
+
+
+    <div id="tercer_bloque">
+        <div style="width: 50%; height: 500px; background-color: black;">
+            <div id="objeto_capaz_de_moverse" ></div>
+        </div>
+        <div style="width: 50%; height: 500px; background-color: green;">
+            <button id="Animacion1" type="button">Animacion 1</button>
+            <button id="Animacion2" type="button">Animacion 2</button>
+            <button id="Animacion3" type="button">Animacion 3</button>
+            <button id="invisible" type="button">Hacer invisible</button>
+            <p style="color: white">Ahora aprenderemos a crear y controlar animaciones utilizando javascript puro y CSS</p>
+            <p style="color: white">Se trata tan solo de crear la animacion en css y desde javascript cambiamos el nombre
+            de la animacion. Una animacion viene siendo una propiedad mas que podemos setear en css y que por ende podemos cambiar
+            desde javascript</p>
+        </div>
+    </div>
+
+    <center>
+        <h1>Transiciones</h1>
+    </center>
+
+    <div id="cuarto_bloque" style="background-color: gold;">
+        <div style="width: 50%;">
+            <button id="Cambiar_tamaño">Cambiar tamaño</button>
+            <button id="Cambiar_color" >Cambiar color</button>
+            <button id="Rotar">Hacer rotar</button>
+        </div>
+        <div style="width: 50%;">
+            <div id="figura2" class="rectangulo"></div>
+        </div>
+    </div>
+
+    <center>
+        <h1>Velocidad de animaciones</h1>
+    </center>
+
+    <div id="quinto_bloque" >
+        <div style="width: 20%; background-color: gold; height: 300px;">
+            <button id="animar">Generar animación</button>
+        </div>
+        <div style="width: 80%; background-color: skyblue; height: 300px;">
+            <div id="figura3" ></div>
+            <div id="figura4" ></div>
+            <div id="figura5" ></div>
+        </div>
+    </div>
+
+    <script>
+
+        // dejamos en constantes las referencias a los diferentes elementos html que modificaremos
+        const cuadrado_boton = document.querySelector("#cuadrado_boton")
+        const circulo_boton =  document.querySelector("#circulo_boton")
+        const rectangulo_boton =  document.querySelector("#rectangulo_boton")
+        const figura = document.querySelector("#figura")
+        const figura2 = document.querySelector("#figura2")
+        const animacion1_boton = document.querySelector("#Animacion1")
+        const animacion2_boton = document.querySelector("#Animacion2")
+        const animacion3_boton = document.querySelector("#Animacion3")
+        const invisible_boton = document.querySelector("#invisible")
+        const objeto_dinamico = document.querySelector("#objeto_capaz_de_moverse")
+        const boton_transicion_tamaño = document.querySelector("#Cambiar_tamaño")
+        const boton_transicion_color = document.querySelector("#Cambiar_color")
+        const boton_rotar = document.querySelector("#Rotar")
+        const boton_animar = document.querySelector("#animar")
+        const figura3 = document.querySelector("#figura3")
+        const figura4 = document.querySelector("#figura4")
+        const figura5 = document.querySelector("#figura5")
+
+        // se convierte en cuadrado al hacer click en el boton correspondiente
+        cuadrado_boton.onclick = function(){
+            figura.classList.add("cuadrado") 
+            /* es mala practica dejarlo hasta aqui aunque funcione, pues a este punto
+            figura tendria mas de una clase clases de forma innecesaria
+            debemos quitar las demas que pueda tener*/
+            figura.classList.remove("circulo")
+            figura.classList.remove("rectangulo")
+        }
+
+        // se convierte en circulo al hacer click en el boton correspondiente
+        circulo_boton.onclick = function(){
+            figura.classList.add("circulo") 
+            /* es mala practica dejarlo hasta aqui aunque funcione, pues a este punto
+            figura tendria mas de una clase clases de forma innecesaria
+            debemos quitar las demas que pueda tener*/
+            figura.classList.remove("cuadrado")
+            figura.classList.remove("rectangulo")
+        }
+
+        // se convierte en rectangulo al hacer click en el boton correspondiente
+        rectangulo_boton.onclick = function(){
+            figura.classList.add("rectangulo") 
+            /* es mala practica dejarlo hasta aqui aunque funcione, pues a este punto
+            figura tendria mas de una clase clases de forma innecesaria
+            debemos quitar las demas que pueda tener*/
+            figura.classList.remove("cuadrado")
+            figura.classList.remove("circulo")
+        }
+
+        animacion1_boton.onclick = function(){
+            objeto_dinamico.style.animationName = "animacion1";
+        }
+
+        animacion2_boton.onclick = function(){
+            objeto_dinamico.style.animationName = "animacion2";
+        }
+
+        animacion3_boton.onclick = function(){
+            objeto_dinamico.style.animationName = "animacion3";
+        }
+
+        var senal = false;
+        invisible_boton.onclick = function(){
+            senal = !senal;
+            if(senal) { this.innerText ="Hacer visible"; objeto_dinamico.style.visibility = "hidden";}
+            else { this.innerText ="Hacer invisible"; objeto_dinamico.style.visibility = "visible"; }
+        }
+
+        var aux = true
+        boton_transicion_color.onclick = function(){
+            if( aux )
+                figura2.style.backgroundColor = "blue"
+            else
+                figura2.style.backgroundColor = "red"
+            aux = !aux
+        }
+
+        var aux2 = true
+        boton_transicion_tamaño.onclick = function(){
+            if (aux2)
+                figura2.style.width = "500px"
+            else
+                figura2.style.width = "100px"
+            aux2 = !aux2
+        }
+
+        var aux3 = true
+        boton_rotar.onclick = function(){
+            if (aux3)
+                figura2.style.transform = "rotate(360deg)"
+            else
+                figura2.style.transform = "rotate(0deg)"
+            aux3 = !aux3
+        }
+
+        boton_animar.onclick = ()=>{
+            figura3.style.animationName = "animacion4"
+            figura4.style.animationName = "animacion4"
+            figura5.style.animationName = "animacion4"
+        }
+
+    </script>
+</body>
+
+</html>

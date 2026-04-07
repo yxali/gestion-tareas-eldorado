@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+p{
+    cursor: default;
+    margin-top: 20%;
+    font-size: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+button{
+    background-color: red;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transition-property: background-color, font-size, height, width;
+    border: none;
+    width: 150px;
+    height:30px;
+    font-size: 20px;
+    transition-duration: 1s;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: green;
+    font-size: 25px;
+    height: 95px;
+    width:300px;
+}
+
+</style>
+
+<body>
+    <center>
+        <p></p>
+        <button>Siguiente</button>
+    </center>
+
+<script>
+    const arreglo = [
+                    "<b>HTML</b>, el esqueleto de la web, fue publicado en <b>1993</b>",
+                    "El principal desarollador de <b>HTML</b> fue <b/>Tim Berners-lee</b>, padre de la <b>World Wide Web</b>",
+                    "<b>Håkon Wium Lie</b> es un programador noruego conocido por crear <b>CSS</b>, trabaja en <b>Opera</b>",
+                    "<b>CSS</b> es un lenguaje de diseño gráfico con el que se puede <b>mejorar la apariencia</b> de un sitio web",
+                    "El estadounidense <b>Brendan Eich</b> creó <b>Javascript</b> en 1995 y fue CEO de <b>Mozilla</b> (2005-2015)",
+                    "Sin <b>Javascript</b>, el internet no interatuara con el usuario, <b>no habría botones por ejemplo</b>",
+                    "<b>Javascript</b> sirve del lado del cliente <b>(Front-End)</b> como del servidor <b>(Back-End)</b>"]
+
+    indice = 0;
+    document.querySelector("p").innerHTML = arreglo[indice]
+
+    document.querySelector("button").onclick = function(){
+        if(indice == 5) indice = -1
+        indice++
+        document.querySelector("p").innerHTML = arreglo[indice]
+
+    }
+</script>
+</body>
+</html>

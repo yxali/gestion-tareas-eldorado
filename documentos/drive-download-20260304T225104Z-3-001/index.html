@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Documento</title>
+</head>
+<style>
+    *{margin: 0; padding: 0;}
+    .contenedor{
+        margin: 10%;
+        background-color: aquamarine;
+        display: flex;
+        height: 300px;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .figura{
+        width: 80px;
+        height: 80px;
+        background-color: red;
+        transition-property: width;
+        transition-duration: 2s;
+    }
+</style>
+<body>
+    <div class="contenedor">
+        <div class="figura">
+        </div>
+    </div>
+
+    <script>
+
+        function colorearFondoRojo(){
+            document.querySelector("body").style.backgroundColor = "red"
+        }
+
+        function colorearContenedorVerde(){
+            document.querySelector(".contenedor").style.backgroundColor = "green"
+        }
+
+        function aumentarAncho(){
+            document.querySelector(".figura").style.width = "130px"
+        }
+        //**************************************************************************************
+        //-----------------------------------------CASO 1---------------------------------------
+        //**************************************************************************************
+
+        document.querySelector(".figura").onclick = colorearFondoRojo
+        document.querySelector(".figura").onclick = colorearContenedorVerde
+        document.querySelector(".figura").onclick = aumentarAncho
+
+        // En este caso unicamente la funcion "aumentarAncho" se ejecutará cuando el usuario le haga click a cuadro rojo
+        // definir eventos de esta manera substituye las anteriores definiciones de eventos
+
+        //**************************************************************************************
+        //-----------------------------------------CASO 2---------------------------------------
+        //**************************************************************************************
+        // ANTES DE VISUALIZAR LOS RESULTADOS DE ESTE CASO COMENTE LAS LINEAS 49,50 Y 51 (el anterior caso)
+        // Y LUEGO DESCOMENTE LAS SIGUIENTES
+
+/*
+        document.querySelector(".figura").addEventListener("click", colorearFondoRojo)
+        document.querySelector(".figura").addEventListener("click", colorearContenedorVerde)
+        document.querySelector(".figura").addEventListener("click", aumentarAncho)
+*/
+        // En cambio, con addEventListener las definiciones de los eventos no se substituyen.
+
+        // "click" --> usuario hace click en el elementos     
+        // "mouseover" --> usuario coloca el cursor sobre el elemento
+        // "mouseout" --> usuario saca el cursor del elemento
+
+        // para definir eventos de la manera que se hizo en el caso 1, se añade el prefijo "on" a los nombres de los eventos
+    </script>
+
+</body>
+</html>

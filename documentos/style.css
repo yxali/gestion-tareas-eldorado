@@ -1,0 +1,39 @@
+body {
+    background-color: blue;
+}
+
+p {
+
+  color: red;
+
+  text-align: center;
+
+}
+#para1 {
+
+  text-align: center;
+
+  color: red;
+
+}
+.center {
+
+  text-align: center;
+
+  color: red;
+
+}
+
+p.center {
+
+  text-align: center;
+
+  color: red;
+
+}
+
+/* This is
+
+a multi-line
+
+comment */

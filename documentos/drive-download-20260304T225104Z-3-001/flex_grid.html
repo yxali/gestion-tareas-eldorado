@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        width: 100%;
+        height: 200vh;
+        
+    }
+    #header{
+        width: 100%;
+        height: 10vh;
+        background-color: gold;
+
+    }
+    #centro{
+        width: 100%;
+        height: 80vh;
+        display: flex;
+    }
+    #centro-izq{
+        width: 80%;
+        height: 80vh;
+        background-color: green;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    #centro-der{
+        width: 20%;
+        height: 80vh;
+        background-color: purple;
+    }
+    #footer{
+        width: 100%;
+        height: 10vh;
+        background-color: blue;
+    }
+    #otro-div{
+        width: 60%;
+        height: 80vh;
+        background-color: orange;
+
+    }
+    #otro1{
+        background-color: red;
+        width: 100%;
+        height: 20vh;
+    }
+    #otro2{
+        background-color: skyblue;
+        width: 100%;
+        height: 50vh;
+    }
+    #otro3{
+        background-color: gold;
+        width: 100%;
+        height: 10vh;
+    }
+
+    #header2{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+        height: 25vh;
+        background-color: skyblue;
+        grid-template-rows: 50% 50%;
+        align-items: center;
+    }
+
+    .box-item:hover{
+        width: 60%;
+        height: 60%;
+    }
+
+
+    .box-item{
+        border: 2px solid red;
+        width: 50%;
+        height: 50%;
+        margin: 0 auto;
+        cursor: pointer;
+        background-color: pink;
+    }
+
+    #big-box{
+        display: grid;
+        height: 75vh;
+        width: 100%;
+        background-color: black;
+        grid-template-areas: "a b b "
+                             "a b b "
+                             "a b b "
+                             "c c c ";
+        grid-auto-columns: 50% 25% 25%;
+    }
+
+    #big{
+        grid-area: a;
+        background-color: rgba(137, 43, 226, 0.26);
+        align-self: center;
+        width: 80%;
+        height: 80%;
+    }
+
+    #big:hover{
+        width: 85%;
+        height: 85%;
+    }
+
+    .b{
+        background-color: green;
+        align-self: center;
+    }
+
+    #itemc1{
+        background-color: gold;
+        grid-area: c;
+        width: 90%;
+        height: 80%;
+    }
+
+    #itemc1:hover{
+        width: 95%;
+    }
+
+</style>
+<body>
+    <div id="header">
+
+    </div>
+    <div id="centro">
+        <div id="centro-izq">
+            <div id="otro-div">
+                <div id="otro1">
+
+                </div>
+                <div id="otro2">
+
+                </div>
+                <div id="otro3">
+
+                </div>
+            </div>
+        </div>
+        <div id="centro-der">
+
+        </div>
+    </div>
+    <div id="footer">
+
+    </div>
+    <div id="header2">
+        <div class="box-item">
+
+        </div>
+        <div class="box-item ">
+
+        </div>
+        <div class="box-item">
+
+        </div>
+
+        <div class="box-item">
+
+        </div>
+        <div class="box-item">
+
+        </div>
+        <div class="box-item">
+
+        </div>
+    </div>
+    <div id="big-box">
+        <div id="big" class="box-item">
+
+        </div>
+        <div class="box-item b">
+
+        </div>
+        <div class="box-item b">
+
+        </div>
+        <div class="box-item b">
+
+        </div>
+        <div class="box-item b">
+
+        </div>
+        <div class="box-item b">
+
+        </div>
+        <div class="box-item b">
+
+        </div>
+        <div id="itemc1" class="box-item ">
+
+        </div>
+    </div>
+</body>
+</html>

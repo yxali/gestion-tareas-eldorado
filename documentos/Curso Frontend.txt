@@ -1,0 +1,241 @@
+Curso Frontend
+
+El pseudo-elemento ::first-line solo se puede aplicar a elementos a nivel de bloque.
+
+p::first-line {
+
+  color: #ff0000;
+
+  font-variant: small-caps;
+
+}
+
+Las siguientes propiedades se aplican al pseudo-elemento ::first-line:
+
+Propiedades de la fuente
+Propiedades del color
+Propiedades de fondo
+Espacio entre palabras
+Espaciado de letras
+Decoración de texto
+Alineación vertical
+Transformación de texto
+Altura de la línea
+Claro
+
+
+El pseudo-elemento ::first-letter solo se puede aplicar a elementos a nivel de bloque.
+
+p::first-letter {
+
+  color: #ff0000;
+
+  font-size: xx-large;
+
+}
+
+Las siguientes propiedades se aplican al pseudo.-elemento ::first-letter: 
+
+
+
+Propiedades de la fuente
+Propiedades del color 
+Propiedades de fondo
+Propiedades de margen
+Propiedades de relleno
+Propiedades de borde
+Decoración de texto
+Alineación vertical (solo si «flotante» es «ninguno»)
+Transformación de texto
+Altura de la línea
+Flotar
+Claro
+
+ejemplo
+
+p::first-letter {
+
+  color: #ff0000;
+
+  font-size: xx-large;
+
+}
+
+
+
+p::first-line {
+
+  color: #0000ff;
+
+  font-variant: small-caps;
+
+}
+
+El pseudo-elemento ::before se puede utilizar para insertar algún contenido antes del contenido de un elemento.
+
+
+
+El siguiente ejemplo inserta una imagen antes del contenido de cada elemento <h1>:
+
+
+
+h1::before {
+
+  content: url(smiley.gif);
+
+}
+
+El pseudo-elemento ::after
+ 
+
+El pseudo-elemento ::after se puede utilizar para insertar algún contenido después del contenido de un elemento.
+
+
+
+El siguiente ejemplo inserta una imagen después del contenido de cada elemento <h1>:
+
+
+
+h1::after {
+
+  content: url(smiley.gif);
+
+}
+
+El pseudo-elemento ::marker selecciona los marcadores de los elementos de la lista.
+
+
+
+El siguiente ejemplo aplica estilo a los marcadores de los elementos de la lista:
+
+
+
+::marker {
+
+  color: red;
+
+  font-size: 23px;
+
+}
+
+El pseudo-elemento ::selection coincide con la parte de un elemento que selecciona un usuario.
+
+
+
+Las siguientes propiedades CSS se pueden aplicar a ::selection: color, background, cursor y outline.
+
+
+
+El siguiente ejemplo hace que el texto seleccionado sea rojo sobre un fondo amarillo:
+
+
+
+::selection {
+
+  color: red;
+
+  background: yellow;
+
+}
+
+Con CSS, los enlaces se pueden diseñar de muchas maneras diferentes.
+
+
+
+Los enlaces se pueden diseñar con cualquier propiedad CSS (por ejemplo color, font-family, background, etc.).
+
+
+
+a {
+
+  color: hotpink;
+
+}
+
+a:link- un enlace normal, no visitado
+a:visited- un enlace que el usuario ha visitado
+a:hover- un enlace cuando el usuario pasa el mouse sobre él
+a:active- un enlace en el momento en que se hace clic
+
+
+/* unvisited link */
+
+a:link {
+
+  color: red;
+
+}
+
+
+
+/* visited link */
+
+a:visited {
+
+  color: green;
+
+}
+
+
+
+/* mouse over link */
+
+a:hover {
+
+  color: hotpink;
+
+}
+
+
+
+/* selected link */
+
+a:active {
+
+  color: blue;
+
+}
+
+Al establecer el estilo para varios estados de enlace, existen algunas reglas de orden:
+
+
+
+a:hover DEBE venir después de a:link y a:visited
+a:active DEBE venir después de a:hover
+
+Decoración de texto
+
+
+La propiedad text-decoration se usa principalmente para eliminar los subrayados de los enlaces:
+
+
+
+a:link {
+
+  text-decoration: none;
+
+}
+
+
+
+a:visited {
+
+  text-decoration: none;
+
+}
+
+
+
+a:hover {
+
+  text-decoration: underline;
+
+}
+
+
+
+a:active {
+
+  text-decoration: underline;
+
+}

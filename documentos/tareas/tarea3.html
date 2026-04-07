@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    html,body{
+        padding: 0;
+        margin: 0;
+    }
+    #seccion_superior,#seccion_imagenes,#fibonacci,#seccion_inferior, #pregunta, #imagen_pregunta{
+        /*
+        border: 2px;
+        border-color: red;
+        border-style: solid;*/
+        background-color: black;
+        height: 50vh;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+
+    #seccion_superior, #seccion_inferior{
+        display: flex;
+        width: 100%;
+    }
+
+    #seccion_imagenes, #imagen_pregunta{
+        width: 33%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        
+    }
+
+    #fibonacci{
+        color: white;
+        width: 66%;
+    }
+
+    #imagen_pregunta{
+        width: 33%;
+    }
+
+    #pregunta{
+        width: 66%;
+    }
+
+    h2{
+        color: white;
+        margin-top: 10%;
+    }
+
+    .opcion{
+        background-color: rgb(40, 8, 114);
+        border: none;
+        width: 40%;
+        height: 30px;
+        margin-top: 2%;
+        cursor: pointer;
+        color: white;
+        font-size: 20px;
+        border-radius: 2%;
+        margin-left: 2%;
+    }
+
+    .opcion:hover{
+        background-color: red;
+    }
+
+
+</style>
+<body>
+    <div id="seccion_superior">
+        <div id="seccion_imagenes"></div>
+        <div id="fibonacci">
+            <h2 id="Enunciado">Ingrese un número entero positivo n, se mostrará el enésimo número de la sucesión de Fibonacci</h2>
+            <input id="numero" type="text"> 
+            <button id="guardar">Buscar</button>
+            <p id="respuesta"></p>
+        </div>
+    </div>
+
+    <div id="seccion_inferior">
+        <div id="pregunta">
+            <h2 id="enunciado"> Coloque su pregunta aqui</h2>
+            <button class="opcion" id="op1">coloque su opcion 1 aqui</button>
+            <button class="opcion" id="op2">coloque su opcion 2 aqui</button>
+            <button class="opcion" id="op3">coloque su opcion 3 aqui</button>
+            <button class="opcion" id="op4">coloque su opcion 4 aqui</button>
+
+        </div>
+        <div id="imagen_pregunta">
+
+        </div>
+    </div>
+
+
+    <script>
+        //diviertase
+
+    </script>
+</body>
+</html>
