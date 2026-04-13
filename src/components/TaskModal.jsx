@@ -1,59 +1,120 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { taskService } from '../services/taskService';
+import { categoryService } from '../services/categoryService';
 
 const TaskModal = ({ onTaskAdded }) => {
-  const [taskData, setTaskData] = useState({ title: '', priority: 'media', description: '' });
+  const [categories, setCategories] = useState([]);
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    priority: 'Baja',
+    category: 'General'
+  });
+
+  // Función para obtener categorías frescas
+  const refreshCategories = () => {
+    const freshCats = categoryService.getCategories();
+    setCategories(freshCats);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  // useEffect con lógica de limpieza para los eventos de Bootstrap
+  useEffect(() => {
+    const modalElement = document.getElementById('taskModal');
+    
+    // Función de callback para el evento
+    const onShow = () => refreshCategories();
+
+    // Escuchamos cuando el modal se abre
+    modalElement.addEventListener('show.bs.modal', onShow);
+    
+    // Carga inicial
+    refreshCategories();
+
+    // RETORNO DE LIMPIEZA: Elimina el event listener al desmontar el componente
+    return () => {
+      modalElement.removeEventListener('show.bs.modal', onShow);
+    };
+  }, []);
 
   const handleSave = () => {
-    if (!taskData.title) return alert("¡El título es obligatorio!");
+    if (!formData.title) return alert("¡El título es obligatorio!");
     
-    taskService.saveTask(taskData);
+    taskService.saveTask(formData);
     alert("Tarea guardada con éxito");
 
     onTaskAdded();
     
-    // Limpiar formulario y cerrar (esto último requiere una pequeña ayuda de Bootstrap)
-    setTaskData({ title: '', priority: 'media', description: '' });
+    // Limpiar formulario al cerrar
+    setFormData({ 
+      title: '', 
+      priority: 'Baja', 
+      description: '', 
+      category: 'General' 
+    });
   };
 
   return (
     <div className="modal fade" id="taskModal" tabIndex="-1" aria-hidden="true">
       <div className="modal-dialog">
-        <div className="modal-content bg-dark text-white border-secondary">
+        <div className="modal-content bg-body border-secondary">
           <div className="modal-header border-secondary">
-            <h5 className="modal-title">Crear Nueva Tarea</h5>
-            <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            <h5 className="modal-title text-body">Crear Nueva Tarea</h5>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div className="modal-body">
             <form>
               <div className="mb-3">
-                <label className="form-label">Título</label>
+                <label className="form-label text-body">Título</label>
                 <input 
                   type="text" 
-                  className="form-control bg-dark text-white border-secondary"
-                  value={taskData.title}
-                  onChange={(e) => setTaskData({...taskData, title: e.target.value})}
+                  name="title"
+                  className="form-control bg-body-tertiary text-body border-secondary"
+                  value={formData.title}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">Prioridad</label>
+                <label className="form-label text-body">Prioridad</label>
                 <select 
-                  className="form-select bg-dark text-white border-secondary"
-                  value={taskData.priority}
-                  onChange={(e) => setTaskData({...taskData, priority: e.target.value})}
+                  name="priority"
+                  className="form-select bg-body-tertiary text-body border-secondary"
+                  value={formData.priority}
+                  onChange={handleInputChange}
                 >
-                  <option value="baja">Baja</option>
-                  <option value="media">Media</option>
-                  <option value="alta">Alta</option>
+                  <option value="Baja">Baja</option>
+                  <option value="Media">Media</option>
+                  <option value="Alta">Alta</option>
                 </select>
               </div>
               <div className="mb-3">
-                <label className="form-label">Descripción</label>
+                <label className="form-label text-body">Categoría</label>
+                <select 
+                  name="category"
+                  className="form-select bg-body-tertiary text-body border-secondary"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                >
+                  {categories.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-3">
+                <label className="form-label text-body">Descripción</label>
                 <textarea 
-                  className="form-control bg-dark text-white border-secondary" 
+                  name="description"
+                  className="form-control bg-body-tertiary text-body border-secondary" 
                   rows="3"
-                  value={taskData.description}
-                  onChange={(e) => setTaskData({...taskData, description: e.target.value})}
+                  value={formData.description}
+                  onChange={handleInputChange}
                 ></textarea>
               </div>
             </form>

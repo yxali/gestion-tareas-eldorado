@@ -23,12 +23,13 @@ export const taskService = {
   },
 
    toggleTaskStatus: (id) => {
-     const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+     const tasks = taskService.getTasks();
      const updatedTasks = tasks.map(task => 
        // Si es la tarea que buscamos, invertimos su estado 'completed'
        task.id === id ? { ...task, completed: !task.completed } : task
     );
-    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTasks));
+    return updatedTasks;
 }
 
 };

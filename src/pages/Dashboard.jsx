@@ -1,23 +1,37 @@
+import {useState} from "react";
+
 const Dashboard = ({ tasks, onDelete, onToggle }) => {
+  const [filter, setFilter] = useState('Todas');
+  const filteredTask = tasks.filter(task =>
+    filter === 'Todas' || task.priority === filter
+  );
   return (
     <div className="container-fluid p-4">
       <header className="mb-4">
-        <h1 className="fw-bold text-body">Panel de Control</h1>
-        <p className="text-body-secondary">Empresa El Dorado</p>
+        <h2 className="fw-bold text-body">Panel de Control</h2>
       </header>
 
       {/* --- SECCIÓN DE TARJETAS --- */}
       <div className="row g-3 mb-5">
         <div className="col-md-3">
-          <div className="card bg-body-tertiary border-primary border-start border-4 p-3 shadow-sm">
-            <small className="text-body-secondary fw-bold d-block mb-1">TOTAL TAREAS</small>
+          <div className="card bg-body-tertiary border-primary border-start border-4 p-3 shadow-sm"
+          style={{ cursor: 'pointer' }}
+          onClick={() => setFilter('Todas')}
+          >
+            <small className="text-body-secondary fw-bold d-block mb-1">Total de tareas</small>
             <h2 className="fw-bold mb-0 text-primary">{tasks.length}</h2>
           </div>
         </div>
 
         <div className="col-md-3">
-          <div className="card bg-body-tertiary border-danger border-start border-4 p-3 shadow-sm">
-            <small className="text-body-secondary fw-bold d-block mb-1">URGENTES (ALTA)</small>
+          <div 
+            className={`card border-start border-4 p-3 shadow-sm transition-all ${
+              filter === 'alta' ? 'bg-danger-subtle border-danger' : 'bg-body-tertiary border-danger'
+            }`}
+            style={{ cursor: 'pointer', transition: '0.3s' }}
+            onClick={() => setFilter('alta')}
+              >
+            <small className="text-body-secondary fw-bold d-block mb-1">Prioridad Alta</small>
             <h2 className="fw-bold mb-0 text-danger">
               {tasks.filter(t => t.priority === 'alta').length}
             </h2>
@@ -25,8 +39,14 @@ const Dashboard = ({ tasks, onDelete, onToggle }) => {
         </div>
 
         <div className="col-md-3">
-          <div className="card bg-body-tertiary border-warning border-start border-4 p-3 shadow-sm">
-            <small className="text-body-secondary fw-bold d-block mb-1">PENDIENTES (MEDIA)</small>
+          <div 
+            className={`card border-start border-4 p-3 shadow-sm transition-all ${
+              filter === 'media' ? 'bg-warning-subtle border-warning' : 'bg-body-tertiary border-warning'
+            }`}
+            style={{ cursor: 'pointer', transition: '0.3s' }}
+            onClick={() => setFilter('media')}
+              >
+            <small className="text-body-secondary fw-bold d-block mb-1">Prioridad media</small>
             <h2 className="fw-bold mb-0 text-warning">
               {tasks.filter(t => t.priority === 'media').length}
             </h2>
@@ -34,8 +54,14 @@ const Dashboard = ({ tasks, onDelete, onToggle }) => {
         </div>
 
         <div className="col-md-3">
-          <div className="card bg-body-tertiary border-info border-start border-4 p-3 shadow-sm">
-            <small className="text-body-secondary fw-bold d-block mb-1">RELAJADAS (BAJA)</small>
+          <div 
+            className={`card border-start border-4 p-3 shadow-sm transition-all ${
+              filter === 'baja' ? 'bg-info-subtle border-info' : 'bg-body-tertiary border-info'
+            }`}
+            style={{ cursor: 'pointer', transition: '0.3s' }}
+            onClick={() => setFilter('baja')}
+          >
+            <small className="text-body-secondary fw-bold d-block mb-1">Prioridad baja</small>
             <h2 className="fw-bold mb-0 text-info">
               {tasks.filter(t => t.priority === 'baja').length}
             </h2>
@@ -49,9 +75,9 @@ const Dashboard = ({ tasks, onDelete, onToggle }) => {
           <h4 className="mb-3">Tareas Recientes</h4>
           <div className="list-group">
             {tasks.length === 0 ? (
-              <p className="text-muted text-center p-4">No hay tareas. ¡Haz clic en "+ Nueva Tarea"!</p>
+              <p className="text-muted text-center p-4">No hay tareas. ¡Haz clic en &quot+ Nueva Tarea!&quot</p>
             ) : (
-              tasks.map((task) => (
+              filteredTask.map((task) => (
                 <div 
                   key={task.id} 
                   className={`list-group-item bg-body-tertiary border-0 d-flex justify-content-between align-items-center mb-2 rounded shadow-sm ${task.completed ? 'opacity-50' : ''}`}
@@ -66,16 +92,21 @@ const Dashboard = ({ tasks, onDelete, onToggle }) => {
                       style={{ cursor: 'pointer', width: '20px', height: '20px' }}
                     />
                     <div>
-                      <h5 className={`mb-1 text-body ${task.completed ? 'text-decoration-line-through' : ''}`}>
+                      <h5 className={`mb-1 text-body ${task.completed ? 'text-decoration-line-through text-muted' : ''}`}>
                         {task.title}
                       </h5>
                       <small className="text-body-secondary d-block">{task.description}</small>
-                      <span className={`badge mt-1 ${
+                      <span className={`badge rounded-pill body-secondary ${
                         task.priority === 'alta' ? 'bg-danger' : 
                         task.priority === 'media' ? 'bg-warning text-dark' : 'bg-info text-dark'
                       }`}>
                         {task.priority.toUpperCase()}
                       </span>
+                      {
+                        <span className="badge rounded-pill text-body-secondary bg-body-tertiary ms-2">
+                          {task.category || 'General'}
+                        </span>
+                      }
                     </div>
                   </div> 
 

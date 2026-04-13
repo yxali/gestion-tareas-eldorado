@@ -4,6 +4,9 @@ import Dashboard from './pages/Dashboard';
 import TaskModal from './components/TaskModal';
 import { taskService } from './services/taskService';
 import './styles/main.scss';
+import { Routes, Route } from 'react-router-dom';
+import TaskList from './pages/TaskList';
+import Categories from './pages/Categories';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -24,7 +27,8 @@ function App() {
 
   const handleToggleTask = (id) => {
     taskService.toggleTaskStatus(id);
-    setTasks(taskService.getTasks())
+    const tasksActualizadas = taskService.getTasks();
+    setTasks(tasksActualizadas)
   };
 
   // 3. Aplicar el tema al HTML cada vez que cambie
@@ -46,7 +50,19 @@ function App() {
       {/* 4. Pasamos el tema y la función al Sidebar */}
       <Sidebar theme={theme} toggleTheme={toggleTheme} />
       <main className="flex-grow-1" style={{ minHeight: '100vh' }}>
-        <Dashboard tasks={tasks} onDelete={handleDeleteTask} onToggle={handleToggleTask}/>
+        <Routes>
+          <Route path='/' element={
+            <Dashboard tasks={tasks} onDelete={handleDeleteTask} onToggle={handleToggleTask}/>
+          } />
+          <Route path='/tareas' element={
+            <TaskList
+              tasks={tasks}
+              onDelete={handleDeleteTask}
+              onToggle={handleToggleTask}
+            />
+          } />
+          <Route path="/categorias" element={<Categories />} />
+        </Routes>
       </main>
       <TaskModal onTaskAdded={refreshTasks} />
     </div>

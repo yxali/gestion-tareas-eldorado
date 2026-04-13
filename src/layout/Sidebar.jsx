@@ -1,4 +1,5 @@
-import React from 'react';
+
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ theme, toggleTheme }) => {
   return (
@@ -23,19 +24,19 @@ const Sidebar = ({ theme, toggleTheme }) => {
       {/* MENÚ */}
       <ul className="nav nav-pills flex-column mb-auto">
         <li className="nav-item">
-          <a href="#" className="nav-link active mb-2" aria-current="page">
+          <Link to="/" className="nav-link">
             Panel de Control
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="#" className="nav-link text-body">
+          <Link to="/tareas" className="nav-link">
             Todas las Tareas
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="#" className="nav-link text-body">
+          <Link to="/categorias" className="nav-link">
             Categorías
-          </a>
+          </Link>
         </li>
       </ul>
 
