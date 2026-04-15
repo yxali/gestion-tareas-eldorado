@@ -17,11 +17,10 @@ export const categoryService = {
     return categories;
   },
 
-deleteCategory: (categoryToDelete) => {
-    let categories = categoryService.getCategories();
-    // Filtramos para dejar todas excepto la que queremos borrar
-    categories = categories.filter(cat => cat !== categoryToDelete);
-    localStorage.setItem('categories', JSON.stringify(categories));
-    return categories; // Retornamos la nueva lista para actualizar el estado en React
+deleteCategory: (name) => {
+    let cats = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    const filtered = cats.filter(c => c !== name);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+    return filtered; // Retornamos la nueva lista para actualizar el estado en React
   }
 };

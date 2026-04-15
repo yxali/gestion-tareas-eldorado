@@ -1,69 +1,123 @@
-const TaskList = ({ tasks, onDelete, onToggle }) => {
+import { useState } from 'react';
+
+// Añadimos 'theme' y 'onEdit' a las props
+const TaskList = ({ tasks, onDelete, onToggle, onEdit, theme }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterCategory, setFilterCategory] = useState('Todas');
+
+  const categories = ['Todas', ...new Set(tasks.map(t => t.category || 'General'))];
+
+  const filteredTasks = tasks.filter(task => {
+    const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = filterCategory === 'Todas' || (task.category || 'General') === filterCategory;
+    return matchesSearch && matchesCategory;
+  });
+
   return (
-    <div className="p-4">
-      <h2 className="fw-bold text-body" >Todas las Tareas</h2>
-      <div className="card shadow-sm border-secondary-subtle bg-body-tertiary">
+    <div className="container-fluid p-4">
+      <h2 className="fw-bold text-body-emphasis mb-4">Todas las Tareas</h2>
+
+      {/* --- FILTROS --- */}
+      <div className="row g-3 mb-4">
+        <div className="col-md-6">
+          <input 
+            type="text" 
+            className="form-control bg-body-tertiary border-0 shadow-sm" 
+            placeholder="Buscar tarea" 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="col-md-3">
+          <select 
+            className="form-select bg-body-tertiary border-0 shadow-sm"
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+          >
+            {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+          </select>
+        </div>
+      </div>
+
+      {/* --- TABLA --- */}
+      <div className="card bg-body-tertiary border-0 shadow-sm overflow-hidden">
         <div className="table-responsive">
           <table className="table table-hover align-middle mb-0">
-            <thead className="table-light">
-              <tr className="text-body">
-                <th className="bg-transparent">Estado</th>
-                <th className="bg-transparent">Tarea</th>
-                <th className="bg-transparent">Categoría</th>
-                <th className="bg-transparent">Prioridad</th>
-                <th className="bg-transparent text-end">Acciones</th>
+            {/* Cabecera Inversa */}
+            <thead className={theme === 'light' ? 'table-dark' : 'table-light'}>
+              <tr>
+                <th style={{ width: '80px' }} className="text-center ps-3">Estado</th>
+                <th>Tarea</th>
+                <th style={{ width: '180px' }} className="text-center">Categoría</th>
+                <th style={{ width: '180px' }} className="text-center">Prioridad</th>
+                <th style={{ width: '180px' }} className="text-end pe-4">Acciones</th>
               </tr>
             </thead>
-            <tbody className="text-body">
-              {tasks.length === 0 ? (
+            <tbody>
+              {filteredTasks.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="text-center py-4 text-muted">No hay tareas registradas</td>
+                  <td colSpan="5" className="text-center p-5 text-muted">
+                    No se encontraron tareas con esos filtros.
+                  </td>
                 </tr>
               ) : (
-                tasks.map(task => (
-                  <tr key={task.id} className="border-secondary-subtle">
-                    {/* 1. ESTADO */}
-                    <td>
+                filteredTasks.map(task => (
+                  <tr key={task.id} className={task.completed ? 'opacity-50' : ''}>
+                    {/* ESTADO - Alineado con th */}
+                    <td className="text-center ps-3">
                       <input 
                         type="checkbox" 
                         className="form-check-input"
-                        checked={task.completed || false}
+                        checked={task.completed}
                         onChange={() => onToggle(task.id)}
+                        style={{ cursor: 'pointer', width: '18px', height: '18px' }}
                       />
                     </td>
                     
-                    {/* 2. TAREA */}
+                    {/* TAREA */}
                     <td>
-                      <span className={task.completed ? 'text-decoration-line-through text-muted' : ''}>
-                        {task.title}
-                      </span>
+                      <div className={task.completed ? 'text-decoration-line-through text-muted' : ''}>
+                        <span className="fw-bold text-body">{task.title}</span>
+                        <br />
+                        <small>{task.description}</small>
+                      </div>
                     </td>
 
-                    {/* 3. CATEGORÍA (¡Esta te faltaba en el map!) */}
-                    <td>
-                      <span className="badge rounded-pill border text-body-secondary bg-body-secondary">
+                    {/* CATEGORÍA - Alineada al centro con th */}
+                    <td className="text-center">
+                      <span className="badge bg-secondary-subtle text-body-secondary border">
                         {task.category || 'General'}
                       </span>
                     </td>
 
-                    {/* 4. PRIORIDAD */}
-                    <td>
-                      <span className={`badge ${
-                        task.priority === 'Alta' ? 'bg-danger' : 
-                        task.priority === 'Media' ? 'bg-warning text-dark' : 'bg-info text-dark'
+                    {/* PRIORIDAD - Alineada al centro con th */}
+                    <td className="text-center">
+                      <span className={`badge rounded-pill ${
+                        task.priority?.toLowerCase() === 'alta' ? 'bg-danger' : 
+                        task.priority?.toLowerCase() === 'media' ? 'bg-warning text-dark' : 'bg-info text-dark'
                       }`}>
-                        {task.priority}
+                        {task.priority?.toUpperCase()}
                       </span>
                     </td>
 
-                    {/* 5. ACCIONES */}
-                    <td className="text-end">
-                      <button 
-                        className="btn btn-outline-danger btn-sm border-0"
-                        onClick={() => onDelete(task.id)}
-                      >
-                        <i className="bi bi-trash3"></i> Borrar
-                      </button>
+                    {/* ACCIONES - Alineadas a la derecha con th */}
+                    <td className="text-end pe-4">
+                      <div className="d-flex justify-content-end gap-2">
+                        <button 
+                          className="btn btn-sm btn-outline-primary border-0"
+                          onClick={() => onEdit(task)}
+                          data-bs-toggle="modal" 
+                          data-bs-target="#taskModal"
+                        >
+                          ✏️
+                        </button>
+                        <button 
+                          className="btn btn-sm btn-outline-danger border-0"
+                          onClick={() => onDelete(task.id)}
+                        >
+                          🗑️
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
